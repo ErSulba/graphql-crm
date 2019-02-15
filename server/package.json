@@ -1,0 +1,25 @@
+{
+  "name": "graphql-server",
+  "version": "1.0.0",
+  "description": "a graphql server",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./index.js --exec babel-node -e js",
+    "dev": "node index.js --exec babel-node -e js"
+  },
+  "author": "Alejandro Sulbaran <ersulba@gmail.com> (https://twitter.com/ersulba)",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.4.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "graphql-tools": "^4.0.4",
+    "mongoose": "^5.4.12",
+    "nodemon": "^1.18.10"
+  }
+}
