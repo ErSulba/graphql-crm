@@ -1,0 +1,12 @@
+{
+  "extends": ["prettier", "react-app", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }],
+    "no-console": "off",
+    "jsx-a11y/href-no-hash": [0],
+    "jsx-a11y/anchor-is-valid": "off",
+    "quotes": ["error", "single"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
+}

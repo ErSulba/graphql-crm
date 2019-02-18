@@ -13,7 +13,7 @@ const clientsSchema = new mongoose.Schema({
   emails: Array,
   edad: Number,
   tipo: String,
-  pedidos: Array
+  pedidos: Array,
 });
 
 const Clients = mongoose.model('clients', clientsSchema);

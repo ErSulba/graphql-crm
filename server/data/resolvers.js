@@ -28,7 +28,7 @@ export const resolvers = {
 
     getClients: (root, { limit }) => {
       return Clients.find({}).limit(limit);
-    }
+    },
   },
   Mutation: {
     //Creates client
@@ -40,7 +40,7 @@ export const resolvers = {
         emails: input.emails,
         edad: input.edad,
         tipo: input.tipo,
-        pedidos: input.pedidos
+        pedidos: input.pedidos,
       });
       newClient.id = newClient._id;
 
@@ -70,6 +70,6 @@ export const resolvers = {
           else resolve('Se eliminó correctamente');
         });
       });
-    }
-  }
+    },
+  },
 };

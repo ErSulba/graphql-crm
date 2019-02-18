@@ -42,7 +42,7 @@ input ClientInput {
   nombre: String!
   apellido: String!
   empresa: String!
-  emails: [EmailInput!]
+  emails: [EmailInput]
   edad: Int!
   tipo: ClientType!
   pedidos: [OrderInput]
