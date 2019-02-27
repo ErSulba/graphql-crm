@@ -79,7 +79,11 @@ export default class NewClient extends Component {
             onChange={this.readField(index)}
           />
           <div className='input-group-append'>
-            <button type='button' className='btn btn-danger' onClick={this.removeField(index)}>
+            <button
+              type='button'
+              className='btn btn-danger another-class'
+              onClick={this.removeField(index)}
+            >
               &times; Eliminar
             </button>
           </div>
@@ -88,7 +92,7 @@ export default class NewClient extends Component {
     ));
     return (
       <Fragment>
-        <h2 className='text-center'>Editar Cliente</h2>
+        <h2 className='text-center'>Nuevo Cliente</h2>
         {eResponse}
         <div className='row justify-content-center'>
           {/* Mutation: you need to pass the mutation here, and the form as a children of the mutaion */}
