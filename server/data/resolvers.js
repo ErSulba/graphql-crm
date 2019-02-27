@@ -55,10 +55,15 @@ export const resolvers = {
     // Update client or create a new one
     updateClient: (root, { input }) => {
       return new Promise((resolve, object) => {
-        Clients.findOneAndUpdate({ _id: input.id }, input, { new: true }, (error, client) => {
-          if (error) rejects(error);
-          else resolve(client);
-        });
+        Clients.findOneAndUpdate(
+          { _id: input.id },
+          input,
+          { new: true },
+          (error, client) => {
+            if (error) rejects(error);
+            else resolve(client);
+          }
+        );
       });
     },
 
@@ -67,7 +72,7 @@ export const resolvers = {
       return new Promise((resolve, object) => {
         Clients.findOneAndRemove({ _id: id }, error => {
           if (error) rejects(error);
-          else resolve('Se eliminó correctamente');
+          else resolve('Se eliminó correctamente nojoda vergacion');
         });
       });
     },
