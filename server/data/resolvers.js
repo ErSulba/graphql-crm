@@ -2,19 +2,6 @@ import mongoose from 'mongoose';
 import { Clients } from './db';
 import { rejects } from 'assert';
 
-class Client {
-  constructor(id, { nombre, apellido, empresa, emails, edad, tipo, pedidos }) {
-    this.id = id;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.empresa = empresa;
-    this.emails = emails;
-    this.edad = edad;
-    this.tipo = tipo;
-    this.pedidos = pedidos;
-  }
-}
-
 export const resolvers = {
   Query: {
     getClient: (root, { id }) => {
@@ -26,8 +13,18 @@ export const resolvers = {
       });
     },
 
-    getClients: (root, { limit }) => {
-      return Clients.find({}).limit(limit);
+    getClients: (root, { limit, offset }) => {
+      return Clients.find({})
+        .limit(limit)
+        .skip(offset);
+    },
+    totalClients: root => {
+      return new Promise((resolve, object) => {
+        Clients.countDocuments({}, (error, count) => {
+          if (error) rejects(error);
+          else resolve(count);
+        });
+      });
     },
   },
   Mutation: {
