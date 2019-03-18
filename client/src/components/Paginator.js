@@ -30,7 +30,7 @@ export default class Paginator extends Component {
 
     console.log(pages);
     return (
-      <div className='mt-5 d-flex justify-content-center'>
+      <div className='my-5 d-flex justify-content-center'>
         {previousBtn}
         {nextBtn}
       </div>

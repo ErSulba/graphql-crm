@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier", "react-app", "plugin:prettier/recommended"],
+  "extends": ["prettier", "react-app", "prettier/react", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true, "jsxSingleQuote": true }],
