@@ -35,10 +35,24 @@ class EditForm extends Component {
     return noValid;
   };
 
+  editProductForm = (e, updateProduct) => {
+    //prevents the default behavior of the submit
+    e.preventDefault();
+    //Here executes the mutation that we pass
+    updateProduct()
+      //After succes update, clears the state
+      .then(
+        this.setState({
+          ...initialState
+        })
+      );
+  };
+
   render() {
     const { nombre, precio, stock } = this.state;
-
+    const { id } = this.props;
     const input = {
+      id,
       nombre,
       precio: Number(precio),
       stock: Number(stock)
@@ -46,6 +60,8 @@ class EditForm extends Component {
     return (
       <Mutation
         mutation={UPDATE_PRODUCT}
+        variables={{ input }}
+        key={id}
         onCompleted={() => {
           this.props
             //Refetching data from graphql server
@@ -56,72 +72,57 @@ class EditForm extends Component {
             });
         }}
       >
-        {updateProduct => (
-          <form
-            className='col-md-8'
-            onSubmit={e => {
-              e.preventDefault();
-              const { id } = this.props;
-              const { nombre, precio, stock } = this.state;
-
-              const input = {
-                id,
-                nombre,
-                precio: Number(precio),
-                stock: Number(stock)
-              };
-              updateProduct({
-                variables: { input }
-              });
-            }}
-          >
-            <div className='form-group'>
-              <label>Nombre:</label>
-              <input
-                onChange={this.updateState}
-                type='text'
-                name='nombre'
-                className='form-control'
-                placeholder='Nombre del Producto'
-                defaultValue={this.state.nombre}
-              />
-            </div>
-            <div className='form-group'>
-              <label>Precio:</label>
-              <div className='input-group'>
-                <div className='input-group-prepend'>
-                  <div className='input-group-text'>$</div>
+        {(updateProduct, { loading, error, data }) => {
+          return (
+            <form className='col-md-8' onSubmit={e => this.editProductForm(e, updateProduct)}>
+              <div className='form-group'>
+                <label>Nombre:</label>
+                <input
+                  onChange={this.updateState}
+                  type='text'
+                  name='nombre'
+                  className='form-control'
+                  placeholder='Nombre del Producto'
+                  defaultValue={this.state.nombre}
+                />
+              </div>
+              <div className='form-group'>
+                <label>Precio:</label>
+                <div className='input-group'>
+                  <div className='input-group-prepend'>
+                    <div className='input-group-text'>$</div>
+                  </div>
+                  <input
+                    onChange={this.updateState}
+                    type='number'
+                    name='precio'
+                    className='form-control'
+                    placeholder='Precio del Producto'
+                    defaultValue={this.state.precio}
+                  />
                 </div>
+              </div>
+              <div className='form-group'>
+                <label>Stock:</label>
                 <input
                   onChange={this.updateState}
                   type='number'
-                  name='precio'
+                  name='stock'
                   className='form-control'
-                  placeholder='Precio del Producto'
-                  defaultValue={this.state.precio}
+                  placeholder='stock del Producto'
+                  defaultValue={this.state.stock}
                 />
               </div>
-            </div>
-            <div className='form-group'>
-              <label>Stock:</label>
-              <input
-                onChange={this.updateState}
-                type='number'
-                name='stock'
-                className='form-control'
-                placeholder='stock del Producto'
-                defaultValue={this.state.stock}
-              />
-            </div>
-            <button
-              disabled={this.validateForm()}
-              type='submit'
-              className='btn btn-success float-right'
-            >
-              Guardar Cambios
-            </button>
-          </form>
-        )}
+              <button
+                disabled={this.validateForm()}
+                type='submit'
+                className='btn btn-success float-right'
+              >
+                Guardar Cambios
+              </button>
+            </form>
+          );
+        }}
       </Mutation>
     );
   }
