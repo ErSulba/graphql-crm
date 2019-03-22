@@ -43,7 +43,6 @@ class Clients extends Component {
         {({ loading, error, data, startPolling, stopPolling }) => {
           if (loading) return 'Cargando...';
           if (error) return `Error ${error.message}`;
-          console.log(data);
 
           return (
             <Fragment>
