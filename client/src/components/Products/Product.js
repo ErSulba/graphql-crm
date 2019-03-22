@@ -3,7 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import { PRODUCTS_QUERY } from '../../queries';
 import { DELETE_PRODUCT } from '../../mutations';
 import { Link } from 'react-router-dom';
-import Success from '../Alertas/Success';
+import Success from '../Alerts/Success';
 export class Products extends Component {
   state = {
     alert: {
@@ -11,6 +11,32 @@ export class Products extends Component {
       message: ''
     }
   };
+
+  succesMessage = data => () => {
+    console.log(data);
+    this.setState(
+      {
+        alert: {
+          show: true,
+          message: data.deleteProduct
+        }
+      },
+      //Clears the message after the set time has finished
+      this.clearMessage()
+    );
+  };
+
+  clearMessage = () => {
+    setTimeout(() => {
+      this.setState({
+        alert: {
+          show: false,
+          message: ''
+        }
+      });
+    }, 3000);
+  };
+
   render() {
     const {
       alert: { show, message }
@@ -54,15 +80,7 @@ export class Products extends Component {
                               //Mutation used
                               mutation={DELETE_PRODUCT}
                               //Shows an alert when the mutation succeded
-                              onCompleted={data => {
-                                this.setState({
-                                  alert: {
-                                    show: true,
-                                    message: data.deleteProduct
-                                  }
-                                });
-                                console.log(data.deleteProduct);
-                              }}
+                              //TODO: make that the alert works here
                             >
                               {deleteProduct => (
                                 <button
