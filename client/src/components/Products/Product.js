@@ -4,14 +4,40 @@ import { PRODUCTS_QUERY } from '../../queries';
 import { DELETE_PRODUCT } from '../../mutations';
 import { Link } from 'react-router-dom';
 import Success from '../Alerts/Success';
+import Paginator from '../Paginator';
+
 export class Products extends Component {
+  limit = 30;
+
   state = {
+    paginator: {
+      offset: 0,
+      actual: 1
+    },
     alert: {
       show: false,
       message: ''
     }
   };
 
+  previousPage = () => {
+    this.setState({
+      paginator: {
+        offset: this.state.paginator.offset - this.limit,
+        actual: this.state.paginator.actual - 1
+      }
+    });
+  };
+
+  nextPage = () => {
+    console.log('next');
+    this.setState({
+      paginator: {
+        offset: this.state.paginator.offset + this.limit,
+        actual: this.state.paginator.actual + 1
+      }
+    });
+  };
   succesMessage = data => () => {
     console.log(data);
     this.setState(
@@ -49,10 +75,15 @@ export class Products extends Component {
 
         {alert}
 
-        <Query query={PRODUCTS_QUERY} pollInterval={1000}>
+        <Query
+          query={PRODUCTS_QUERY}
+          pollInterval={1000}
+          variables={{ limit: this.limit, offset: this.state.paginator.offset }}
+        >
           {({ loading, error, data, startPolling, stopPolling }) => {
             if (loading) return 'cargando...';
             if (error) return `Error ${error.message}`;
+            console.log(data);
 
             return (
               <Fragment>
@@ -109,6 +140,13 @@ export class Products extends Component {
                     })}
                   </tbody>
                 </table>
+                <Paginator
+                  actual={this.state.paginator.actual}
+                  total={data.totalProducts}
+                  limit={this.limit}
+                  previousPage={this.previousPage}
+                  nextPage={this.nextPage}
+                />
               </Fragment>
             );
           }}
