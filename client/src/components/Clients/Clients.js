@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { CLIENTS_QUERY } from '../../queries';
 import { DELETE_CLIENT } from '../../mutations';
 import Paginator from '../Paginator';
+import Success from '../Alerts/Success';
 
 class Clients extends Component {
   limit = 10;
@@ -12,6 +13,10 @@ class Clients extends Component {
     paginator: {
       offset: 0,
       actual: 1
+    },
+    alert: {
+      show: false,
+      message: ''
     }
   };
 
@@ -34,6 +39,11 @@ class Clients extends Component {
     });
   };
   render() {
+    const {
+      alert: { show, message }
+    } = this.state;
+
+    const alert = show ? <Success message={message} /> : '';
     return (
       <Query
         query={CLIENTS_QUERY}
@@ -47,6 +57,7 @@ class Clients extends Component {
           return (
             <Fragment>
               <h2 className='text-center'> Listado</h2>
+              {alert}
               <ul className='list-group'>
                 {data.getClients.map(item => {
                   const { id } = item;
@@ -57,7 +68,18 @@ class Clients extends Component {
                           {item.nombre} {item.apellido}
                         </div>
                         <div className='col-md-4 d-flex justify-content-end'>
-                          <Mutation mutation={DELETE_CLIENT}>
+                          <Mutation
+                            mutation={DELETE_CLIENT}
+                            onCompleted={data => {
+                              console.log(data);
+                              this.setState({
+                                alert: {
+                                  show: true,
+                                  message: data.deleteClient
+                                }
+                              });
+                            }}
+                          >
                             {deleteClient => (
                               <button
                                 type='button'
