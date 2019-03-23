@@ -40,6 +40,16 @@ export const resolvers = {
         });
       });
     },
+
+    totalProducts: (root) => {
+      return new Promise((resolve) => {
+        Products.countDocuments({}, (error, count) => {
+          if(error) rejects(error)
+          else resolve(count)
+        })
+      })
+
+    }
   },
   Mutation: {
     //Creates client
