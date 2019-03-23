@@ -90,7 +90,7 @@ class Clients extends Component {
 
               <Paginator
                 actual={this.state.paginator.actual}
-                totalClients={data.totalClients}
+                total={data.totalClients}
                 limit={this.limit}
                 previousPage={this.previousPage}
                 nextPage={this.nextPage}

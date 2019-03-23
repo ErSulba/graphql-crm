@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 export default class Paginator extends Component {
   state = {
     paginator: {
-      pages: Math.ceil(Number(this.props.totalClients) / this.props.limit)
+      pages: Math.ceil(Number(this.props.total) / this.props.limit)
     }
   };
   render() {
     const { actual } = this.props;
-    const pages = Math.ceil(this.props.totalClients / 10);
+    const { pages } = this.state.paginator;
     //previous Button
     const previousBtn =
       actual > 1 ? (
@@ -28,7 +28,6 @@ export default class Paginator extends Component {
         ''
       );
 
-    console.log(pages);
     return (
       <div className='my-5 d-flex justify-content-center'>
         {previousBtn}
