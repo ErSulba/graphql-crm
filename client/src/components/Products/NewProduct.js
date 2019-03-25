@@ -44,7 +44,7 @@ export class NewProduct extends Component {
       this.cleanState();
 
       //Redirect to products
-      this.props.history.push('/productos');
+      this.props.history.push('/products');
     });
   };
 
