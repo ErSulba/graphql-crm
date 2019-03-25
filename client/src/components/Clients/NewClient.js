@@ -55,8 +55,8 @@ export default class NewClient extends Component {
       emails: newEmail
     });
   };
-  redirectToHome = () => {
-    this.props.history.push('/');
+  redirectToClientList = () => {
+    this.props.history.push('/clients');
   };
 
   render() {
@@ -96,7 +96,7 @@ export default class NewClient extends Component {
         {eResponse}
         <div className='row justify-content-center'>
           {/* Mutation: you need to pass the mutation here, and the form as a children of the mutaion */}
-          <Mutation mutation={NEW_CLIENT} onCompleted={this.redirectToHome}>
+          <Mutation mutation={NEW_CLIENT} onCompleted={this.redirectToClientList}>
             {createClient => (
               <form
                 className='col-md-8 m-3'

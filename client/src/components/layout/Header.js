@@ -21,13 +21,21 @@ const Header = () => (
 
       <div className='collapse navbar-collapse' id='navegacion'>
         <ul className='navbar-nav ml-auto text-right'>
-          <li className='nav-item active'>
-            <Link to='/cliente/nuevo' className='btn btn-success mr-3'>
-              Nuevo Cliente
-            </Link>
-            <Link to='/producto/nuevo' className='btn btn-success'>
-              Nuevo Producto
-            </Link>
+          <li className='nav-item dropdown'>
+            <button
+              className='nav-link dropdown-toggle btn btn-block btn-success'
+              data-toggle='dropdown'
+            >
+              Clientes
+            </button>
+            <div className='dropdown-menu' aria-labelledby='navegacion'>
+              <Link to='/clients' className='dropdown-item'>
+                Ver listado de Clientes
+              </Link>
+              <Link to='/clients/new' className='dropdown-item'>
+                Nuevo cliente
+              </Link>
+            </div>
           </li>
         </ul>
       </div>

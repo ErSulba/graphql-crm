@@ -34,12 +34,12 @@ class App extends Component {
             <Header />
             <div className='container'>
               <Switch>
-                <Route exact path='/' component={Clients} />
-                <Route exact path='/cliente/editar/:id' component={EditClient} />
-                <Route exact path='/cliente/nuevo' component={NewClient} />
-                <Route exact path='/producto/nuevo' component={NewProduct} />
-                <Route exact path='/productos/' component={Products} />
-                <Route exact path='/producto/editar/:id' component={EditProduct} />
+                <Route exact path='/clients' component={Clients} />
+                <Route exact path='/clients/new' component={NewClient} />
+                <Route exact path='/clients/edit/:id' component={EditClient} />
+                <Route exact path='/products/new' component={NewProduct} />
+                <Route exact path='/products/' component={Products} />
+                <Route exact path='/products/edit/:id' component={EditProduct} />
               </Switch>
             </div>
           </Fragment>
