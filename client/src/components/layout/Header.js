@@ -37,6 +37,22 @@ const Header = () => (
               </Link>
             </div>
           </li>
+          <li className='nav-item dropdown ml-3'>
+            <button
+              className='nav-link dropdown-toggle btn btn-block btn-success'
+              data-toggle='dropdown'
+            >
+              Productos
+            </button>
+            <div className='dropdown-menu' aria-labelledby='navegacion'>
+              <Link to='/clients' className='dropdown-item'>
+                Ver listado de Productos
+              </Link>
+              <Link to='/clients/new' className='dropdown-item'>
+                Nuevo Producto
+              </Link>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
