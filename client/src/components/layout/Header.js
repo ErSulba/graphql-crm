@@ -45,10 +45,10 @@ const Header = () => (
               Productos
             </button>
             <div className='dropdown-menu' aria-labelledby='navegacion'>
-              <Link to='/clients' className='dropdown-item'>
+              <Link to='/products' className='dropdown-item'>
                 Ver listado de Productos
               </Link>
-              <Link to='/clients/new' className='dropdown-item'>
+              <Link to='/products/new' className='dropdown-item'>
                 Nuevo Producto
               </Link>
             </div>
