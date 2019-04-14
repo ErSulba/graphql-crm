@@ -47,7 +47,7 @@ class EditForm extends Component {
         mutation={UPDATE_CLIENT}
         onCompleted={() =>
           this.props.refetch().then(() => {
-            this.props.history.push('/');
+            this.props.history.push('/clients');
           })
         }
       >
