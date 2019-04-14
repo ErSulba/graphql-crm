@@ -13,6 +13,7 @@ import NewClient from './components/Clients/NewClient';
 import NewProduct from './components/Products/NewProduct';
 import Products from './components/Products/Product';
 import EditProduct from './components/Products/EditProduct';
+import NewOrder from './components/Orders/NewOrder';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -40,6 +41,7 @@ class App extends Component {
                 <Route exact path='/products/new' component={NewProduct} />
                 <Route exact path='/products/' component={Products} />
                 <Route exact path='/products/edit/:id' component={EditProduct} />
+                <Route exact path='/orders/new/:id' component={NewOrder} />
               </Switch>
             </div>
           </Fragment>
