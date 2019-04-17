@@ -21,13 +21,33 @@ type Email {
 }
 
 type Order {
-  producto: String
-  precio: Int
+  id: ID
+  pedido: [ProductOrder]
+  total: Int
+  fecha: String
+  cliente: ID # in mongoose we defined this row as String, but here we defined as an ID because is not the same for Graphql
 }
 
+type ProductOrder {
+  id: ID
+  cantidad: Int
+}
+
+"""
+Assigns category of clients
+"""
 enum ClientType {
   BASICO
   PREMIUM
+}
+
+"""
+Assings state of the orders
+"""
+enum OrderState {
+  PENDIENTE
+  COMPLETADO
+  CANCELADO
 }
 
 type Query {
@@ -68,8 +88,22 @@ input ProductInput {
   stock: Int!
 }
 
+input OrderInput {
+  id: ID
+  pedido: [ProductOrderInput]
+  total: Int
+  fecha: String
+  cliente: ID # in mongoose we defined this row as String, but here we defined as an ID because is not the same for Graphql
+  estado: OrderState
+}
+
+input ProductOrderInput {
+  id: ID
+  cantidad: Int
+}
+
 """
-Mutations to create new clients and Products
+Mutations to create new clients and Products and Orders
 """
 type Mutation {
   # Name of Resolver, input with Data and Value that returns
@@ -80,4 +114,6 @@ type Mutation {
   createProduct(input: ProductInput): Product
   updateProduct(input: ProductInput): Product
   deleteProduct(id: ID): String
+  #Orders
+  newOrder(input: OrderInput): Order
 }

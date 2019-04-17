@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { Clients, Products } from './db';
+import { Clients, Products, Orders } from './db';
+import { rejects } from 'assert';
 
 export const resolvers = {
   Query: {
@@ -41,15 +42,14 @@ export const resolvers = {
       });
     },
 
-    totalProducts: (root) => {
-      return new Promise((resolve) => {
+    totalProducts: root => {
+      return new Promise(resolve => {
         Products.countDocuments({}, (error, count) => {
-          if(error) rejects(error)
-          else resolve(count)
-        })
-      })
-
-    }
+          if (error) rejects(error);
+          else resolve(count);
+        });
+      });
+    },
   },
   Mutation: {
     //Creates client
@@ -141,6 +141,25 @@ export const resolvers = {
         Products.findOneAndDelete({ _id: id }, error => {
           if (error) rejects(error);
           else resolve('Se elimino correctamente');
+        });
+      });
+    },
+
+    //New order resolver
+    newOrder: (root, { input }) => {
+      const newOrder = new Orders({
+        pedido: input.pedido,
+        total: input.total,
+        fecha: new Date(),
+        cliente: input.cliente,
+        estado: 'PENDIENTE',
+      });
+      newOrder.id = newOrder._id;
+
+      return new Promise((resolve, reject) => {
+        newOrder.save(error => {
+          if (error) rejects(error);
+          else resolve(newOrder);
         });
       });
     },
