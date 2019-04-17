@@ -131,7 +131,7 @@ export class Products extends Component {
                             </Mutation>
                           </td>
                           <td>
-                            <Link to={`/producto/editar/${id}`} className='btn btn-success'>
+                            <Link to={`/products/edit/${id}`} className='btn btn-success'>
                               Editar Producto
                             </Link>
                           </td>
