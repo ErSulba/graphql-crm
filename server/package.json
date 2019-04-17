@@ -4,7 +4,7 @@
   "description": "a graphql server",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./index.js --exec babel-node -e js",
+    "start": "nodemon ./index.js --exec babel-node -e js, graphql",
     "dev": "node index.js --exec babel-node -e js"
   },
   "author": "Alejandro Sulbaran <ersulba@gmail.com> (https://twitter.com/ersulba)",
