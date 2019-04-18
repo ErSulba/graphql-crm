@@ -5,6 +5,7 @@ import { DELETE_PRODUCT } from '../../mutations';
 import { Link } from 'react-router-dom';
 import Success from '../Alerts/Success';
 import Paginator from '../Paginator';
+import Spinner from '../widgets/Spinner';
 
 export class Products extends Component {
   limit = 30;
@@ -81,7 +82,7 @@ export class Products extends Component {
           variables={{ limit: this.limit, offset: this.state.paginator.offset }}
         >
           {({ loading, error, data, startPolling, stopPolling }) => {
-            if (loading) return 'cargando...';
+            if (loading) return <Spinner />;
             if (error) return `Error ${error.message}`;
             console.log(data);
 

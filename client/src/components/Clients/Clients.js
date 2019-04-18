@@ -6,6 +6,7 @@ import { CLIENTS_QUERY } from '../../queries';
 import { DELETE_CLIENT } from '../../mutations';
 import Paginator from '../Paginator';
 import Success from '../Alerts/Success';
+import Spinner from '../widgets/Spinner';
 
 class Clients extends Component {
   limit = 10;
@@ -51,7 +52,7 @@ class Clients extends Component {
         variables={{ limit: this.limit, offset: this.state.paginator.offset }}
       >
         {({ loading, error, data, startPolling, stopPolling }) => {
-          if (loading) return 'Cargando...';
+          if (loading) return <Spinner />;
           if (error) return `Error ${error.message}`;
 
           return (

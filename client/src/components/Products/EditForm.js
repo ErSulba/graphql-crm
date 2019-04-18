@@ -68,7 +68,7 @@ class EditForm extends Component {
             .refetch()
             //After refetch is completed redirect to the list
             .then(() => {
-              this.props.history.push('/productos');
+              this.props.history.push('/products');
             });
         }}
       >
