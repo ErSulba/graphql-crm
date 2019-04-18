@@ -157,6 +157,23 @@ export const resolvers = {
       newOrder.id = newOrder._id;
 
       return new Promise((resolve, reject) => {
+        // iterate and update quantity of products
+        input.pedido.forEach(pedido => {
+          //search the given product
+          console.log(pedido);
+          Products.updateOne(
+            // make use of the id given by the order and filter
+            { _id: pedido.id },
+            {
+              //make use of the "$inc" function to decrement the quantity
+              $inc: { stock: -pedido.cantidad },
+            },
+            // in case of error, throws it in console
+            function(error) {
+              if (error) return new Error(error);
+            }
+          );
+        });
         newOrder.save(error => {
           if (error) rejects(error);
           else resolve(newOrder);
