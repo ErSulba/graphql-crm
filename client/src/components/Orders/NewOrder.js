@@ -17,7 +17,7 @@ export default class NewOrder extends Component {
             <ClientData id={id} />
           </div>
           <div className='col-md-9'>
-            <Query query={PRODUCTS_QUERY}>
+            <Query query={PRODUCTS_QUERY} variables={{ stock: true }}>
               {({ loading, error, data }) => {
                 if (loading) return <Spinner />;
                 if (error) return `Error ${error.message}`;
