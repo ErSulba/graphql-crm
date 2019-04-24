@@ -25,6 +25,7 @@ type Order {
   pedido: [ProductOrder]
   total: Int
   fecha: String
+  estado: OrderState
   cliente: ID # in mongoose we defined this row as String, but here we defined as an ID because is not the same for Graphql
 }
 
@@ -59,6 +60,9 @@ type Query {
   getProducts(limit: Int, offset: Int, stock: Boolean): [Product]
   getProduct(id: ID): Product
   totalProducts: String
+
+  #Orders
+  getOrders(cliente: String): [Order]
 }
 
 input OrderInput {

@@ -55,6 +55,14 @@ export const resolvers = {
         });
       });
     },
+    getOrders: (root, { cliente }) => {
+      return new Promise((resolve, reject) => {
+        Orders.find({ cliente: cliente }, (error, pedido) => {
+          if (error) rejects(error);
+          else resolve(pedido);
+        });
+      });
+    },
   },
   Mutation: {
     //Creates client
