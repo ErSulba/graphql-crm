@@ -3,6 +3,7 @@ import Select from 'react-select';
 import Animated from 'react-select/lib/animated';
 import Resume from './Resume';
 import Heading from '../widgets/Heading';
+import GenerateOrder from './GenerateOrder';
 
 export default class Content extends Component {
   state = { products: [], total: 0 };
@@ -89,6 +90,11 @@ export default class Content extends Component {
         <p className='font-weight-bold float-right mt-3'>
           Total: <span className='font-weight-normal'>${this.state.total} </span>
         </p>
+        <GenerateOrder
+          products={this.state.products}
+          total={this.state.total}
+          clientId={this.props.id}
+        />
       </Fragment>
     );
   }

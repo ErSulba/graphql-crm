@@ -54,3 +54,11 @@ export const UPDATE_PRODUCT = gql`
     }
   }
 `;
+
+export const NEW_ORDER = gql`
+  mutation newOrder($input: OrderInput) {
+    newOrder(input: $input) {
+      id
+    }
+  }
+`;

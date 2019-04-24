@@ -22,7 +22,13 @@ export default class NewOrder extends Component {
                 if (loading) return <Spinner />;
                 if (error) return `Error ${error.message}`;
                 // console.log(data);
-                return <Content products={data.getProducts} id={id} />;
+                return (
+                  <Content
+                    products={data.getProducts}
+                    // the id of the client
+                    id={id}
+                  />
+                );
               }}
             </Query>
           </div>
