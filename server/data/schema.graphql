@@ -56,7 +56,7 @@ type Query {
   totalClients: String
 
   #Products
-  getProducts(limit: Int, offset: Int): [Product]
+  getProducts(limit: Int, offset: Int, stock: Boolean): [Product]
   getProduct(id: ID): Product
   totalProducts: String
 }

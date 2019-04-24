@@ -27,8 +27,13 @@ export const resolvers = {
       });
     },
 
-    getProducts: (root, { limit, offset }) => {
-      return Products.find({})
+    getProducts: (root, { limit, offset, stock }) => {
+      let filter;
+      if (stock) {
+        // this filter means that if the stock is lower to 0 it won show at all
+        filter = { stock: { $gt: 0 } };
+      }
+      return Products.find(filter)
         .limit(limit)
         .skip(offset);
     },
