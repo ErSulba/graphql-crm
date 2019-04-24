@@ -4,6 +4,7 @@ import Animated from 'react-select/lib/animated';
 import Resume from './Resume';
 import Heading from '../widgets/Heading';
 import GenerateOrder from './GenerateOrder';
+import Error from '../Alerts/Error';
 
 export default class Content extends Component {
   state = { products: [], total: 0 };
@@ -70,9 +71,12 @@ export default class Content extends Component {
   };
 
   render() {
+    const message =
+      this.state.total < 0 ? <Error message='Las cantidades no pueden ser negativas' /> : '';
     return (
       <Fragment>
         <Heading size='h2'> Seleccionar Articulos</Heading>
+        {message}
         <Select
           onChange={this.handleSelectProduct}
           options={this.props.products}
