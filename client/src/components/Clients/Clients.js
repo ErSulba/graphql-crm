@@ -66,7 +66,7 @@ class Clients extends Component {
                     <li key={item.id} className='list-group-item'>
                       <div className='row justify-content-between align-items-center'>
                         <div className='col-md-8 d-flex ustify-content-between align-items-center '>
-                          {item.nombre} {item.apellido}
+                          {item.nombre} {item.apellido} - {item.empresa}
                         </div>
                         <div className='col-md-4 d-flex justify-content-end'>
                           {/* New Orders Link */}
@@ -77,6 +77,16 @@ class Clients extends Component {
                             &#43; Nuevo Pedido
                           </Link>
                           {/* End Of New Orders Link */}
+
+                          {/* Orders of the client Link */}
+                          <Link
+                            to={`/orders/${id}`}
+                            className='btn btn-primary d-block d-md-inline-block mr-2'
+                          >
+                            Ver Pedidos
+                          </Link>
+                          {/* End Orders of the client Link */}
+
                           <Mutation
                             mutation={DELETE_CLIENT}
                             onCompleted={data => {
