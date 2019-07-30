@@ -65,10 +65,10 @@ type Query {
   getOrders(cliente: String): [Order]
 }
 
-input OrderInput {
-  producto: String
-  precio: Int
-}
+# input OrderInput {
+#   producto: String
+#   precio: Int
+# }
 
 input EmailInput {
   email: String
@@ -111,6 +111,9 @@ Mutations to create new clients and Products and Orders
 """
 type Mutation {
   # Name of Resolver, input with Data and Value that returns
+  """
+  Creates the client
+  """
   createClient(input: ClientInput): Client
   updateClient(input: ClientInput): Client
   deleteClient(id: ID): String
@@ -120,4 +123,5 @@ type Mutation {
   deleteProduct(id: ID): String
   #Orders
   newOrder(input: OrderInput): Order
+  updateOrder(input: OrderInput): String
 }

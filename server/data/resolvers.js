@@ -4,13 +4,21 @@ import { rejects } from 'assert';
 
 export const resolvers = {
   Query: {
-    getClient: (root, { id }) => {
-      return new Promise((resolve, object) => {
-        Clients.findById(id, (error, client) => {
-          if (error) rejects(error);
-          else resolve(client);
-        });
-      });
+    getClient: async (root, { id }) => {
+      // return new Promise((resolve, object) => {
+      //   Clients.findById(id, (error, client) => {
+      //     if (error) rejects(error);
+      //     else resolve(client);
+      //   });
+      // });
+      try {
+        const client = await Clients.findById(id);
+        return client;
+      } catch (e) {
+        // does it returns an error? IDk, have to search.
+        throw new Error(e);
+      }
+      // const client = await Clients.findById(id);
     },
 
     getClients: (root, { limit, offset }) => {
@@ -41,7 +49,7 @@ export const resolvers = {
     getProduct: (root, { id }) => {
       return new Promise((resolve, reject) => {
         Products.findById(id, (error, product) => {
-          if (error) rejects(error);
+          if (error) reject(error);
           else resolve(product);
         });
       });
@@ -58,11 +66,11 @@ export const resolvers = {
     getOrders: (root, { cliente }) => {
       return new Promise((resolve, reject) => {
         Orders.find({ cliente: cliente }, (error, pedido) => {
-          if (error) rejects(error);
+          if (error) reject(error);
           else resolve(pedido);
         });
       });
-    },
+    }
   },
   Mutation: {
     //Creates client
@@ -74,7 +82,7 @@ export const resolvers = {
         emails: input.emails,
         edad: input.edad,
         tipo: input.tipo,
-        pedidos: input.pedidos,
+        pedidos: input.pedidos
       });
       newClient.id = newClient._id;
 
@@ -116,7 +124,7 @@ export const resolvers = {
       const newProduct = new Products({
         nombre: input.nombre,
         precio: input.precio,
-        stock: input.stock,
+        stock: input.stock
       });
 
       newProduct.id = newProduct._id;
@@ -165,21 +173,37 @@ export const resolvers = {
         total: input.total,
         fecha: new Date(),
         cliente: input.cliente,
-        estado: 'PENDIENTE',
+        estado: 'PENDIENTE'
       });
       newOrder.id = newOrder._id;
 
       return new Promise((resolve, reject) => {
-        // iterate and update quantity of products
+        newOrder.save(error => {
+          if (error) reject(error);
+          else resolve(newOrder);
+        });
+      });
+    },
+    //Update Order State
+    updateOrder: (root, { input }) => {
+      return new Promise((resolve, reject) => {
+        // iterate and update quantity of products according the order state
+        const { estado } = input;
+        const instruction =
+          estado === 'COMPLETADO'
+            ? '-'
+            : estado === 'CANCELADO'
+            ? '+'
+            : undefined;
         input.pedido.forEach(pedido => {
           //search the given product
-          console.log(pedido);
+          // console.log(pedido);
           Products.updateOne(
             // make use of the id given by the order and filter
             { _id: pedido.id },
             {
               //make use of the "$inc" function to decrement the quantity
-              $inc: { stock: -pedido.cantidad },
+              $inc: { stock: `${instruction}${pedido.cantidad}` }
             },
             // in case of error, throws it in console
             function(error) {
@@ -187,11 +211,16 @@ export const resolvers = {
             }
           );
         });
-        newOrder.save(error => {
-          if (error) rejects(error);
-          else resolve(newOrder);
-        });
+        Orders.findOneAndUpdate(
+          { _id: input.id },
+          input,
+          { new: true },
+          error => {
+            if (error) reject(error);
+            else resolve('Se actualizo correctamente');
+          }
+        );
       });
-    },
-  },
+    }
+  }
 };

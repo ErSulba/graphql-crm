@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Setting the global Promise Object to mongoose
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost/clients', { useNewUrlParser: true });
