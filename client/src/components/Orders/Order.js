@@ -1,37 +1,56 @@
 import React from 'react';
 import { GET_PRODUCT } from '../../queries';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import ProductResume from './ProductResume';
+import { UPDATE_ORDER } from 'mutations';
 
 const Order = ({ cliente, pedido }) => {
+  // State of order
+  const { estado } = pedido;
+
+  // Date of the order
   const fecha = new Date(Number(pedido.fecha));
+
+  const borderClass =
+    estado === 'PENDIENTE'
+      ? 'border-light'
+      : estado === 'CANCELADO'
+      ? 'border-danger'
+      : estado === 'COMPLETADO'
+      ? 'border-success'
+      : '';
   return (
     <div className='col-md-4'>
-      <div className={'card mb-3'}>
+      <div className={`card mb-3 ${borderClass}`}>
         <div className='card-body'>
           <p className='card-text font-weight-bold '>
             Estado:
-            <select
-              className='form-control my-3'
-              value={pedido.estado}
-              onChange={e => {
-                const { id, fecha, total } = pedido;
-                const input = {
-                  estado: e.target.value,
-                  id,
-                  //THIS IS MADNESS
-                  pedido: pedido.pedido,
-                  fecha,
-                  total,
-                  cliente
-                };
-                console.log(input);
-              }}
-            >
-              <option value='PENDIENTE'>PENDIENTE</option>
-              <option value='COMPLETADO'>COMPLETADO</option>
-              <option value='CANCELADO'>CANCELADO</option>
-            </select>
+            <Mutation mutation={UPDATE_ORDER}>
+              {updateOrder => (
+                <select
+                  className='form-control my-3'
+                  value={pedido.estado}
+                  onChange={e => {
+                    const { id, fecha, total } = pedido;
+                    const input = {
+                      estado: e.target.value,
+                      id,
+                      //THIS IS MADNESS
+                      pedido: pedido.pedido,
+                      fecha,
+                      total,
+                      cliente
+                    };
+                    // console.log(input);
+                    updateOrder({ variables: { input } });
+                  }}
+                >
+                  <option value='PENDIENTE'>PENDIENTE</option>
+                  <option value='COMPLETADO'>COMPLETADO</option>
+                  <option value='CANCELADO'>CANCELADO</option>
+                </select>
+              )}
+            </Mutation>
           </p>
           <p className='card-text font-weight-bold'>
             Pedido ID:

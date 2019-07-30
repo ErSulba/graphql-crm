@@ -1,3 +1,7 @@
 .form-control {
   color: black !important;
 }
+
+.card {
+  border-width: 2px;
+}
