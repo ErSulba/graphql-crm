@@ -1,4 +1,11 @@
 {
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  },
   "extends": ["prettier", "react-app", "prettier/react", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
   "rules": {
