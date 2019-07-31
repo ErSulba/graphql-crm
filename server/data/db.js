@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose')
 
 // Setting the global Promise Object to mongoose
 mongoose.Promise = global.Promise;
@@ -34,7 +35,7 @@ const ordersSchema = new mongoose.Schema({
   pedido: Array,
   total: Number,
   fecha: Date,
-  cliente: String,
+  cliente: mongoose.Types.ObjectId,
   estado: String,
 });
 

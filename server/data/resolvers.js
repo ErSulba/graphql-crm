@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { Clients, Products, Orders } from './db';
-import { rejects } from 'assert';
 
 export const resolvers = {
   Query: {
@@ -69,6 +68,47 @@ export const resolvers = {
           if (error) reject(error);
           else resolve(pedido);
         });
+      });
+    },
+    topClients: root => {
+      return new Promise((resolve, reject) => {
+        Orders.aggregate(
+          [
+            {
+              $match: {
+                estado: 'COMPLETADO'
+              }
+            },
+            {
+              $group: {
+                _id: '$cliente',
+                total: {
+                  $sum: '$total'
+                }
+              }
+            },
+            {
+              $lookup: {
+                from: 'clients',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'cliente'
+              }
+            },
+            {
+              $sort: {
+                total: -1
+              }
+            },
+            {
+              $limit: 10
+            }
+          ],
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        );
       });
     }
   },

@@ -35,6 +35,13 @@ type ProductOrder {
 }
 
 """
+Top clients type
+"""
+type ClientTotal {
+  total: Float
+  cliente: [Client]
+}
+"""
 Assigns category of clients
 """
 enum ClientType {
@@ -63,6 +70,9 @@ type Query {
 
   #Orders
   getOrders(cliente: String): [Order]
+
+  #Graphics
+  topClients: [ClientTotal]
 }
 
 # input OrderInput {
