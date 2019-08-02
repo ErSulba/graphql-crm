@@ -66,3 +66,15 @@ export const GET_ORDERS = gql`
     }
   }
 `;
+
+export const TOP_CLIENTS = gql`
+  {
+    topClients {
+      total
+      cliente {
+        nombre
+        apellido
+      }
+    }
+  }
+`;
