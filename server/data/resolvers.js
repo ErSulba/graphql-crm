@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Clients, Products, Orders } from './db';
+import { Clients, Products, Orders, Users } from './db';
 
 export const resolvers = {
   Query: {
@@ -261,6 +261,15 @@ export const resolvers = {
           }
         );
       });
+    },
+    createUser: async (root, { user, password }) => {
+      const userExist = await Users.findOne({ user });
+      if (userExist) {
+        throw new Error('Usuario ya existe');
+      }
+      const newUser = await new Users({ user, password }).save();
+      // console.log(newUser, 'nuevo usuario');
+      return 'Se ha creado correctamente';
     }
   }
 };

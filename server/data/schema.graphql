@@ -41,6 +41,14 @@ type ClientTotal {
   total: Float
   cliente: [Client]
 }
+
+"""
+Type of Users
+"""
+type User {
+  user: String
+  password: String
+}
 """
 Assigns category of clients
 """
@@ -134,4 +142,9 @@ type Mutation {
   #Orders
   newOrder(input: OrderInput): Order
   updateOrder(input: OrderInput): String
+  # Users
+  """
+  Create a unique user, if there's already a user with the same nae it returns an error
+  """
+  createUser(user: String!, password: String!): String
 }

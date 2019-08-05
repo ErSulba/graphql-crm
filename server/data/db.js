@@ -1,5 +1,6 @@
 // import mongoose from 'mongoose';
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+import bcrypt from 'bcrypt';
 
 // Setting the global Promise Object to mongoose
 mongoose.Promise = global.Promise;
@@ -15,7 +16,7 @@ const clientsSchema = new mongoose.Schema({
   emails: Array,
   edad: Number,
   tipo: String,
-  pedidos: Array,
+  pedidos: Array
 });
 
 const Clients = mongoose.model('clients', clientsSchema);
@@ -25,7 +26,7 @@ const Clients = mongoose.model('clients', clientsSchema);
 const productsSchema = new mongoose.Schema({
   nombre: String,
   precio: Number,
-  stock: Number,
+  stock: Number
 });
 
 const Products = mongoose.model('products', productsSchema);
@@ -36,9 +37,33 @@ const ordersSchema = new mongoose.Schema({
   total: Number,
   fecha: Date,
   cliente: mongoose.Types.ObjectId,
-  estado: String,
+  estado: String
 });
 
 const Orders = mongoose.model('orders', ordersSchema);
 
-export { Clients, Products, Orders };
+const usersSchema = new mongoose.Schema({
+  user: String,
+  password: String
+});
+// Hook to create a hashed password
+usersSchema.pre('save', function(next) {
+  // check in case there's a change in the password
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next();
+
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next();
+      this.password = hash;
+      next();
+    });
+  });
+});
+
+const Users = mongoose.model('users', usersSchema);
+
+export { Clients, Products, Orders, Users };
