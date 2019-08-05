@@ -1,6 +1,6 @@
-import React from 'react';
-import Heading from 'components/widgets/Heading';
-import Clients from './Clients';
+import React from 'react'
+import Heading from 'components/widgets/Heading'
+import Clients from './Clients'
 
 const Panel = () => {
   return (
@@ -8,7 +8,7 @@ const Panel = () => {
       <Heading>Top 10 clients</Heading>
       <Clients />
     </>
-  );
-};
+  )
+}
 
-export default Panel;
+export default Panel

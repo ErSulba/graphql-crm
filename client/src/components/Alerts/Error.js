@@ -1,7 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 const Error = ({ message }) => {
-  return <p className='alert alert-danger text-center p-2 mb-2'>{message}</p>;
-};
+  // console.log(message)
+  if (message.message) {
+    message = message.message
+    console.log(message)
+  }
+  return <p className='alert alert-danger text-center p-2 mb-2'>{message}</p>
+}
 
-export default Error;
+export default Error

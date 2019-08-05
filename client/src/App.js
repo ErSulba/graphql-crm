@@ -1,21 +1,23 @@
-import React, { Component, Fragment } from 'react';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component, Fragment } from 'react'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient, { InMemoryCache } from 'apollo-boost'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 //Components
 
 //Layouts
-import Header from './components/layout/Header';
-import Clients from './components/Clients/Clients';
-import EditClient from './components/Clients/EditClient';
-import NewClient from './components/Clients/NewClient';
-import NewProduct from './components/Products/NewProduct';
-import Products from './components/Products/Product';
-import EditProduct from './components/Products/EditProduct';
-import NewOrder from './components/Orders/NewOrder';
-import ClientOrders from './components/Orders/ClientOrders';
-import Panel from 'components/Panel';
+import Header from './components/layout/Header'
+import Clients from './components/Clients/Clients'
+import EditClient from './components/Clients/EditClient'
+import NewClient from './components/Clients/NewClient'
+import NewProduct from './components/Products/NewProduct'
+import Products from './components/Products/Product'
+import EditProduct from './components/Products/EditProduct'
+import NewOrder from './components/Orders/NewOrder'
+import ClientOrders from './components/Orders/ClientOrders'
+import Panel from 'components/Panel'
+import SignUp from 'components/Auth/SignUp'
+import Login from 'components/Login'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -23,10 +25,10 @@ const client = new ApolloClient({
     addTypename: false
   }),
   onError: ({ networkError, graphqlErrors }) => {
-    console.log('graphQLErrors', graphqlErrors);
-    console.log('networkError', networkError);
+    console.log('graphQLErrors', graphqlErrors)
+    console.log('networkError', networkError)
   }
-});
+})
 
 class App extends Component {
   render() {
@@ -42,17 +44,23 @@ class App extends Component {
                 <Route exact path='/clients/edit/:id' component={EditClient} />
                 <Route exact path='/products/new' component={NewProduct} />
                 <Route exact path='/products/' component={Products} />
-                <Route exact path='/products/edit/:id' component={EditProduct} />
+                <Route
+                  exact
+                  path='/products/edit/:id'
+                  component={EditProduct}
+                />
                 <Route exact path='/orders/new/:id' component={NewOrder} />
                 <Route exact path='/orders/:id' component={ClientOrders} />
                 <Route exact path='/panel' component={Panel} />
+                <Route exact path='/sign-up' component={SignUp} />
+                <Route exact path='/login' component={Login} />
               </Switch>
             </div>
           </Fragment>
         </Router>
       </ApolloProvider>
-    );
+    )
   }
 }
 
-export default App;
+export default App

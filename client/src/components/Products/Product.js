@@ -100,10 +100,12 @@ export class Products extends Component {
                   </thead>
                   <tbody>
                     {data.getProducts.map(item => {
-                      const { id } = item;
+                      const { id, stock } = item;
 
+                      const bg =
+                        stock <= 5 ? 'bg-danger text-white' : stock < 20 ? 'bg-warning' : undefined;
                       return (
-                        <tr key={id}>
+                        <tr key={id} className={bg}>
                           <td> {item.nombre} </td>
                           <td> {item.precio} </td>
                           <td> {item.stock} </td>
