@@ -49,6 +49,13 @@ type User {
   user: String
   password: String
 }
+
+"""
+JWT token
+"""
+type Token {
+  token: String
+}
 """
 Assigns category of clients
 """
@@ -147,4 +154,8 @@ type Mutation {
   Create a unique user, if there's already a user with the same nae it returns an error
   """
   createUser(user: String!, password: String!): String
+  """
+  Auth user
+  """
+  authUser(user: String!, password: String!): Token
 }
