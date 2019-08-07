@@ -74,3 +74,10 @@ export const CREATE_USER = gql`
     createUser(user: $user, password: $password)
   }
 `
+export const AUTH_USER = gql`
+  mutation authUser($user: String!, $password: String!) {
+    authUser(user: $user, password: $password) {
+      token
+    }
+  }
+`
