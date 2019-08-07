@@ -3,6 +3,7 @@ import { Clients, Products, Orders, Users } from './db';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { AuthenticationError } from 'apollo-server-express';
 
 dotenv.config({ path: 'variables.env' });
 
@@ -287,12 +288,12 @@ export const resolvers = {
       const userName = await Users.findOne({ user });
 
       if (!userName) {
-        throw new Error('No se encontro usuario con ese nombre');
+        throw new AuthenticationError('No se encontro usuario con ese nombre');
       }
       const correctPassword = await bcrypt.compare(password, userName.password);
 
-      if (correctPassword) {
-        return 'contraseña incorrecta';
+      if (!correctPassword) {
+        throw new AuthenticationError('Contraseña incorrecta');
       } else {
         return { token: generateToken(userName, process.env.SECRET, '1hr') };
       }
