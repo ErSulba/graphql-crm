@@ -47,7 +47,6 @@ Type of Users
 """
 type User {
   user: String
-  password: String
 }
 
 """
@@ -88,6 +87,9 @@ type Query {
 
   #Graphics
   topClients: [ClientTotal]
+
+  #Users
+  getUser: User
 }
 
 # input OrderInput {

@@ -9,8 +9,8 @@ dotenv.config({ path: 'variables.env' });
 
 const generateToken = (userData, secret, expiresIn) => {
   const { user } = userData;
-  console.log(secret);
-  console.log(user);
+  // console.log(secret);
+  // console.log(user);
   return jwt.sign({ user }, secret, { expiresIn });
 };
 
@@ -123,6 +123,16 @@ export const resolvers = {
           }
         );
       });
+    },
+
+    getUser: (root, args, context) => {
+      const { actualUser } = context;
+      if (!actualUser) {
+        return null;
+      }
+
+      const user = Users.findOne({ user: actualUser.user });
+      return user;
     }
   },
   Mutation: {
@@ -275,6 +285,9 @@ export const resolvers = {
         );
       });
     },
+
+    // USERS RESOLVERS
+
     createUser: async (root, { user, password }) => {
       const userExist = await Users.findOne({ user });
       if (userExist) {
@@ -284,6 +297,7 @@ export const resolvers = {
       // console.log(newUser, 'nuevo usuario');
       return 'Se ha creado correctamente';
     },
+
     authUser: async (root, { user, password }) => {
       const userName = await Users.findOne({ user });
 
