@@ -83,6 +83,8 @@ export const ACTUAL_USER = gql`
   query getUser {
     getUser {
       user
+      id
+      nombre
     }
   }
 `

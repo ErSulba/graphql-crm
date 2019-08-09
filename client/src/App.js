@@ -25,10 +25,9 @@ import Login from 'components/Login'
 import Session from 'components/Session'
 
 const App = ({ refetch, session }) => {
-  // console.log(session, 'session')
   const { getUser } = session
   const message = getUser ? (
-    `Bienvenido ${getUser.user}`
+    `Bienvenido: ${getUser.nombre}`
   ) : (
     <Redirect to='/login' />
   )
