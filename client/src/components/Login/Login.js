@@ -23,7 +23,7 @@ const Login = props => {
       <div className='row  justify-content-center'>
         <Mutation
           mutation={AUTH_USER}
-          onCompleted={data => console.log(data, 'token')}
+          // onCompleted={data => console.log(data, 'token')}
         >
           {(authUser, { loading, error, data }) => {
             return (
@@ -38,7 +38,23 @@ const Login = props => {
                   <form
                     onSubmit={e => {
                       e.preventDefault()
-                      authUser({ variables: { user, password } })
+                      authUser({ variables: { user, password } }).then(
+                        async ({ data }) => {
+                          // extract the token from the mutation
+                          const {
+                            authUser: { token }
+                          } = data
+                          // seting the token in the local storage
+                          localStorage.setItem('token', token)
+                          // execute query
+                          await props.refetch()
+
+                          // redirect
+                          setTimeout(() => {
+                            props.history.push('/panel')
+                          }, 3000)
+                        }
+                      )
                     }}
                     className='col-md-8'
                   >
