@@ -44,7 +44,9 @@ const Orders = mongoose.model('orders', ordersSchema);
 
 const usersSchema = new mongoose.Schema({
   user: String,
-  password: String
+  nombre: String,
+  password: String,
+  rol: String
 });
 // Hook to create a hashed password
 usersSchema.pre('save', function(next) {

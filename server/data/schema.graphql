@@ -47,6 +47,8 @@ Type of Users
 """
 type User {
   user: String
+  nombre: String
+  id: ID
 }
 
 """
@@ -155,7 +157,12 @@ type Mutation {
   """
   Create a unique user, if there's already a user with the same nae it returns an error
   """
-  createUser(user: String!, password: String!): String
+  createUser(
+    user: String!
+    nombre: String!
+    password: String!
+    rol: String!
+  ): String
   """
   Auth user
   """

@@ -3,7 +3,7 @@ import { Clients, Products, Orders, Users } from './db';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { AuthenticationError } from 'apollo-server-express';
+import { AuthenticationError, ApolloError } from 'apollo-server-express';
 
 dotenv.config({ path: 'variables.env' });
 
@@ -132,6 +132,7 @@ export const resolvers = {
       }
 
       const user = Users.findOne({ user: actualUser.user });
+      // console.log(user);
       return user;
     }
   },
@@ -288,13 +289,13 @@ export const resolvers = {
 
     // USERS RESOLVERS
 
-    createUser: async (root, { user, password }) => {
+    createUser: async (root, { user, nombre, password, rol }) => {
       const userExist = await Users.findOne({ user });
       if (userExist) {
-        throw new Error('Usuario ya existe');
+        throw new ApolloError('Usuario ya existe');
       }
-      const newUser = await new Users({ user, password }).save();
-      // console.log(newUser, 'nuevo usuario');
+      const newUser = await new Users({ user, nombre, password, rol }).save();
+
       return 'Se ha creado correctamente';
     },
 
